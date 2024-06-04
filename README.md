@@ -1,9 +1,9 @@
 # Docker Install (Docker Compose & JDK)
 ```
-apt update && apt install -y git wget sudo \
+rm -rf setup && apt update && apt install -y git wget sudo \
 && cd /root && git clone https://github.com/terminal800/setup.git \
 && cd /root/setup/docker/ && chmod +x ./install.sh && ./install.sh && apt autoremove -y \
-&& rm -rf setup && history -c
+&& history -c
 ```
 
 # Glider SOCKS5
