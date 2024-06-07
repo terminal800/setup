@@ -18,6 +18,7 @@ sudo chmod +x install_glider.sh && sudo ./install_glider.sh
 ```
 wget https://raw.githubusercontent.com/terminal800/setup/master/storage/mount-hetzner-storage-box.sh
 sudo chmod +x mount-hetzner-storage-box.sh && sudo ./mount-hetzner-storage-box.sh
+rm -rf mount-hetzner-storage-box.sh && history -c
 ```
 
 
