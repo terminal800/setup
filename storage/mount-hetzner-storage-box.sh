@@ -25,8 +25,25 @@ ask() {
     echo "$reply"
 }
 
+# Function to validate username format
+validate_username() {
+    local username=$1
+    if [[ $username =~ ^u[0-9]{6,7}$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Collect user inputs
-USERNAME=$(ask "Enter your Storage Box username" "uXXXXXX")
+while true; do
+    USERNAME=$(ask "Enter your Storage Box username" "uXXXXXX")
+    if validate_username "$USERNAME"; then
+        break
+    else
+        echo "Invalid username format. The username must start with 'u' followed by 6 to 7 digits."
+    fi
+done
 
 # Get the current server's hostname
 SERVER_HOSTNAME=$(hostname)
