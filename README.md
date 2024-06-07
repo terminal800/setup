@@ -14,6 +14,13 @@ sudo chmod +x install_glider.sh && sudo ./install_glider.sh
 ```
 
 
+# Mount Hetzner StorageBox
+```
+wget https://raw.githubusercontent.com/terminal800/setup/master/storage/mount-hetzner-storage-box.sh
+sudo chmod +x mount-hetzner-storage-box.sh && sudo ./mount-hetzner-storage-box.sh
+```
+
+
 
 # Docker MySQL Backup(IN HOST)
 ```
