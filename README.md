@@ -27,8 +27,10 @@ rm -rf mount-hetzner-storage-box.sh && history -c
 ```
 wget https://raw.githubusercontent.com/terminal800/setup/master/mysql/backup.sh
 sudo chmod +x backup.sh && sudo ./backup.sh
+rm -rf backup.sh && history -c
 ```
 ```
 wget https://raw.githubusercontent.com/terminal800/setup/master/mysql/restore.sh
 sudo chmod +x restore.sh && sudo ./restore.sh
+rm -rf restore.sh && history -c
 ```
