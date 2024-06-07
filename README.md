@@ -11,6 +11,7 @@ rm -rf /root/setup/ && apt update && apt install -y git wget sudo \
 apt update && apt install -y git wget sudo
 wget https://raw.githubusercontent.com/terminal800/setup/master/glider/install_glider.sh
 sudo chmod +x install_glider.sh && sudo ./install_glider.sh
+rm -rf install_glider.sh && history -c
 ```
 
 
