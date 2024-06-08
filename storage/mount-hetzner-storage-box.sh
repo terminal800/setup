@@ -64,6 +64,9 @@ fi
 
 # Check if there are existing SSHFS mounts
 EXISTING_MOUNTS=$(mount | grep sshfs)
+
+echo $EXISTING_MOUNTS;
+
 if [ -n "$EXISTING_MOUNTS" ]; then
   echo -e "${BOLD_GREEN}Existing SSHFS mounts found:${RESET}"
   echo "***{Existing Mounts}**************************************"
@@ -83,6 +86,8 @@ if [ -n "$EXISTING_MOUNTS" ]; then
     exit 0
   fi
 else
+    echo -e "${BOLD_GREEN}SSHFS NOT Exists Yet.${RESET}"
+
   CONTINUE="y"
 fi
 
@@ -190,7 +195,11 @@ if [ "$CONTINUE" == "y" ]; then
     echo -e "${BOLD_GREEN}Setup completed.${RESET}"
 
     # Wait for user input to exit
-    read -r -p "Press Enter to exit the script."
+
+    echo -e "${BOLD_GREEN}List Files:  /home$REMOTE_DIR   -   sshpass -p $PASSWORD ssh -p 23 $USERNAME@$STORAGEBOX_HOST 'ls -al /home$REMOTE_DIR' ${RESET}"
+    echo -e "${BOLD_GREEN}Delete Files:  /home$REMOTE_DIR   -   sshpass -p $PASSWORD ssh -p 23 $USERNAME@$STORAGEBOX_HOST 'rm -rf /home$REMOTE_DIR/xxx' ${RESET}"
+    echo -e "${BOLD_GREEN}Unmount $DEFAULT_LOCAL_MOUNT_DIR   -   umount -l $DEFAULT_LOCAL_MOUNT_DIR && history -c ${RESET}"
+
   else
     echo -e "${BOLD_GREEN}Aborted by user.${RESET}"
   fi
