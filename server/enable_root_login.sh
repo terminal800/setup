@@ -13,10 +13,7 @@ trim() {
 
 # Prompt for root user password and store it in a variable
 while true; do
-    stty -echo
     read -p "Enter the new root user password (at least 10 characters): " root_password
-    stty echo
-    echo
     root_password=$(trim "$root_password")
     if [[ ${#root_password} -ge 10 ]]; then
         echo "You entered: $root_password"
