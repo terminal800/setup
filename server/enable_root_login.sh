@@ -2,7 +2,7 @@
 
 # Ensure the script is run as root or with sudo privileges
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root or with sudo privileges." 
+   echo "This script must be run as root or with sudo privileges."
    exit 1
 fi
 
@@ -13,7 +13,10 @@ trim() {
 
 # Prompt for root user password and store it in a variable
 while true; do
+    stty -echo
     read -p "Enter the new root user password (at least 10 characters): " root_password
+    stty echo
+    echo
     root_password=$(trim "$root_password")
     if [[ ${#root_password} -ge 10 ]]; then
         echo "You entered: $root_password"
