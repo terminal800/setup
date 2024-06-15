@@ -13,8 +13,7 @@ trim() {
 
 # Prompt for root user password and store it in a variable
 while true; do
-    read -s -p "Enter the new root user password (at least 10 characters): " root_password
-    echo
+    read -p "Enter the new root user password (at least 10 characters): " root_password
     root_password=$(trim "$root_password")
     if [[ ${#root_password} -ge 10 ]]; then
         echo "You entered: $root_password"
