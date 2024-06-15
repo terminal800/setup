@@ -61,8 +61,14 @@ if [[ "$confirm" == "y" ]]; then
     sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
     sed -i 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
+
+    #AWS EC2 Ubuntu
+    sed -i 's/^#KbdInteractiveAuthentication no/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
+    sed -i 's/^KbdInteractiveAuthentication no/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
+
     # Restart SSH service to apply changes
     echo "Restarting SSH service"
+    systemctl daemon-reload
     systemctl restart ssh
 
     echo "$(green "Operation completed. You can now log in as root using SSH with the new password.")"
