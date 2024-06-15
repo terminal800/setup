@@ -24,29 +24,40 @@ blue() {
     echo -e "\e[34m$1\e[0m"
 }
 
-# Prompt for root user password and store it in a variable
-while true; do
-    read -p "$(blue "Enter the new root user password (at least 10 characters): ")" root_password
-    root_password=$(trim "$root_password")
+# Check if a password was provided as an argument
+if [[ -n "$1" ]]; then
+    root_password=$(trim "$1")
     if [[ ${#root_password} -ge 10 ]]; then
-        echo -e "You entered: $(green "$root_password")"
-        while true; do
-            read -p "$(blue "Do you want to proceed with this password? (Y/n): ")" confirm
-            confirm=$(trim "$confirm")
-            if [[ -z "$confirm" || "$confirm" == "y" ]]; then
-                confirm="y"
-                break 2
-            elif [[ "$confirm" == "n" ]]; then
-                echo "$(blue "Please enter the password again.")"
-                break
-            else
-                echo "$(red "Invalid input. Please enter 'y' or 'n'.")"
-            fi
-        done
+        echo -e "Using provided password: $(green "$root_password")"
+        confirm="y"
     else
-        echo "$(red "Password must be at least 10 characters long. Please try again.")"
+        echo "$(red "Provided password must be at least 10 characters long.")"
     fi
-done
+else
+    # Prompt for root user password and store it in a variable
+    while true; do
+        read -p "$(blue "Enter the new root user password (at least 10 characters): ")" root_password
+        root_password=$(trim "$root_password")
+        if [[ ${#root_password} -ge 10 ]]; then
+            echo -e "You entered: $(green "$root_password")"
+            while true; do
+                read -p "$(blue "Do you want to proceed with this password? (Y/n): ")" confirm
+                confirm=$(trim "$confirm")
+                if [[ -z "$confirm" || "$confirm" == "y" ]]; then
+                    confirm="y"
+                    break 2
+                elif [[ "$confirm" == "n" ]]; then
+                    echo "$(blue "Please enter the password again.")"
+                    break
+                else
+                    echo "$(red "Invalid input. Please enter 'y' or 'n'.")"
+                fi
+            done
+        else
+            echo "$(red "Password must be at least 10 characters long. Please try again.")"
+        fi
+    done
+fi
 
 if [[ "$confirm" == "y" ]]; then
     # Set root user password
@@ -61,8 +72,7 @@ if [[ "$confirm" == "y" ]]; then
     sed -i 's/^#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
     sed -i 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-
-    #AWS EC2 Ubuntu
+    # AWS EC2 Ubuntu
     sed -i 's/^#KbdInteractiveAuthentication no/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
     sed -i 's/^KbdInteractiveAuthentication no/KbdInteractiveAuthentication yes/' /etc/ssh/sshd_config
 
@@ -77,5 +87,4 @@ if [[ "$confirm" == "y" ]]; then
     cat /etc/ssh/sshd_config | grep PasswordAuthentication
     cat /etc/ssh/sshd_config | grep PermitRootLogin
     echo "=================================================================="
-
 fi
