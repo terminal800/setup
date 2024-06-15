@@ -45,3 +45,10 @@ sudo chmod +x enable_root_login.sh && sudo ./enable_root_login.sh
 rm -rf enable_root_login.sh && history -c
 ```
 
+
+```
+wget https://raw.githubusercontent.com/terminal800/setup/master/server/enable_root_login.sh
+sudo chmod +x enable_root_login.sh && sudo ./enable_root_login.sh PASSWORD
+rm -rf enable_root_login.sh && history -c
+```
+
