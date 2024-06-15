@@ -35,3 +35,13 @@ wget https://raw.githubusercontent.com/terminal800/setup/master/mysql/restore.sh
 sudo chmod +x restore.sh && sudo ./restore.sh
 rm -rf restore.sh && history -c
 ```
+
+
+
+# Enable ROOT Login
+```
+wget https://raw.githubusercontent.com/terminal800/setup/master/server/enable_root_login.sh
+sudo chmod +x enable_root_login.sh && sudo ./enable_root_login.sh
+rm -rf enable_root_login.sh && history -c
+```
+
