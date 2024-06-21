@@ -52,6 +52,20 @@ set_ulimit_max_permanently() {
 set_ulimit_max_permanently
 check_and_disable_swap
 
+
+Ajust_Network() {
+  echo "⏳ Adjusting host network buffer sizes..."
+  sudo sysctl -w net.core.rmem_max=600000000
+  sudo sysctl -w net.core.wmem_max=600000000
+  
+  if ! grep -q "^net.core.rmem_max=600000000$" /etc/sysctl.conf; then
+    echo "net.core.rmem_max=600000000" | sudo tee -a /etc/sysctl.conf
+  fi
+  if ! grep -q "^net.core.wmem_max=600000000$" /etc/sysctl.conf; then
+    echo "net.core.wmem_max=600000000" | sudo tee -a /etc/sysctl.conf
+  fi
+}
+
 Install_JDK_DEBIAN() {
   wget https://cdn.azul.com/zulu/bin/zulu21.30.15-ca-jdk21.0.1-linux_x64.tar.gz
   mkdir -p /usr/java && tar -xzvf zulu21.30.15-ca-jdk21.0.1-linux_x64.tar.gz --strip-components 1 -C /usr/java
@@ -85,6 +99,8 @@ Install_Docker_Compose_Debian() {
 if [ ! -e "/usr/bin/docker" ]; then
   Install_Docker_Debian
 fi
+
+Ajust_Network
 
 Install_Docker_Compose_Debian
 
